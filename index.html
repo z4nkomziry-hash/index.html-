@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ku-center" dir="rtl">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,51 +7,44 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; font-family: sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; min-height: 100vh; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .glass-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4">
+<body class="flex flex-col items-center justify-center p-4">
 
-    <header class="w-full max-w-lg py-6 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">SAVE<span class="text-pink-500">TA</span></h1>
-    </header>
+    <div class="mb-8 text-center">
+        <h1 class="text-4xl font-black tracking-tighter">SAVE<span class="text-pink-500">TA</span></h1>
+    </div>
 
-    <main class="w-full max-w-lg glass p-6 rounded-3xl shadow-2xl text-center">
-        <h2 class="text-xl font-bold mb-4">لینکی ئینستاگرامێ لڤێرە دانێ</h2>
+    <main class="glass-box w-full max-w-md p-6 rounded-3xl shadow-2xl">
+        <p class="text-center text-slate-300 mb-6 font-medium">لینکی ئینستاگرامێ لڤێرە دانێ</p>
         
         <input type="text" id="instaUrl" placeholder="https://www.instagram.com/..." 
-            class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl mb-4 text-left" dir="ltr">
+            class="w-full bg-slate-950 border border-slate-700 p-4 rounded-2xl mb-4 text-left outline-none focus:border-pink-500 transition" dir="ltr">
         
         <button onclick="downloadMedia()" id="btnDownload" 
-            class="w-full bg-gradient-to-r from-pink-500 to-violet-600 p-4 rounded-xl font-bold hover:opacity-90 transition">
+            class="w-full bg-gradient-to-r from-pink-500 to-violet-600 p-4 rounded-2xl font-bold text-white hover:opacity-90 transition shadow-lg">
             دابەزینە
         </button>
 
-        <div id="errorMessage" class="hidden mt-4 text-red-400 bg-red-900/20 p-3 rounded-lg text-sm"></div>
-
-        <div id="resultCard" class="hidden mt-6">
-            <img id="mediaCover" src="" class="w-full rounded-2xl mb-4">
-            <button id="downloadBtnMain" class="w-full bg-emerald-500 p-4 rounded-xl font-bold">
-                دابەزاندنا فایلی
-            </button>
-        </div>
+        <div id="errorMessage" class="hidden mt-4 text-red-400 bg-red-950/30 p-3 rounded-xl text-sm text-center border border-red-900/50"></div>
     </main>
 
-    <button onclick="document.getElementById('supportModal').classList.remove('hidden')" class="mt-8 text-slate-400 hover:text-white transition">
+    <button onclick="document.getElementById('supportModal').classList.remove('hidden')" class="mt-8 text-slate-400 hover:text-white transition flex items-center gap-2">
         <i class="fa-solid fa-heart text-pink-500"></i> پشتەڤانیا مە بکە ☕
     </button>
 
-    <div id="supportModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4">
-        <div class="bg-slate-900 p-6 rounded-3xl w-full max-w-sm text-center">
-            <h3 class="font-bold mb-4">پشتەڤانییا مە بکە</h3>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=FastPay:+9647506045491" class="mx-auto bg-white p-2 rounded-xl mb-4">
-            <p class="font-mono text-pink-500 mb-4">+964 750 604 5491</p>
-            <button onclick="document.getElementById('supportModal').classList.add('hidden')" class="bg-slate-700 px-6 py-2 rounded-lg">داخستن</button>
+    <div id="supportModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 p-6 rounded-3xl w-full max-w-xs text-center border border-slate-700">
+            <h3 class="font-bold text-lg mb-4">پشتەڤانییا مە بکە</h3>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=FastPay:+9647506045491" class="mx-auto bg-white p-2 rounded-2xl mb-4">
+            <p class="font-mono text-pink-500 font-bold mb-4">+964 750 604 5491</p>
+            <button onclick="document.getElementById('supportModal').classList.add('hidden')" class="w-full bg-slate-800 py-3 rounded-xl hover:bg-slate-700">داخستن</button>
         </div>
     </div>
 
-    <footer class="mt-auto py-6 text-slate-500 text-sm">SAVETA © 2026</footer>
+    <footer class="mt-12 text-slate-600 text-sm">SAVETA © 2026</footer>
 
     <script>
         async function downloadMedia() {
@@ -64,14 +57,11 @@
             err.classList.add('hidden');
 
             try {
-                // سێرڤەرەکێ گشتی یێ بێ کێشە
                 const res = await fetch(`https://api.vkrhost.com/api/instagram.php?url=${encodeURIComponent(url)}`);
                 const data = await res.json();
                 
                 if(data.data && data.data[0]) {
-                    document.getElementById('mediaCover').src = data.data[0].thumbnail;
-                    document.getElementById('resultCard').classList.remove('hidden');
-                    document.getElementById('downloadBtnMain').onclick = () => window.open(data.data[0].url, '_blank');
+                    window.open(data.data[0].url, '_blank');
                 } else {
                     throw new Error();
                 }
