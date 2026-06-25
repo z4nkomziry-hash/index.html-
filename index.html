@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ku-center" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSTAJET | باشترین دابەزێنەرێ ئینستاگرامێ</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Kufi+Arabic:wght@300;500;700&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Kufi Arabic', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px rgba(255, 255, 255, 0.08) solid;
+        }
+        .dir-ltr { direction: ltr; text-align: left; }
+        .dir-rtl { direction: rtl; text-align: right; }
+    </style>
+    
+    <!-- SOCIAL BAR AD -->
+    <script src="https://pl29886983.effectivecpmnetwork.com/d3/93/40/d3934077e9523de11fad986c4fc273e4.js"></script>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-pink-500 selection:text-white">
+
+    <!-- TOP BAR -->
+    <header class="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-tr from-pink-500 to-violet-600 p-2.5 rounded-2xl shadow-lg shadow-pink-500/20">
+                <i class="fa-brands fa-instagram text-xl text-white"></i>
+            </div>
+            <span class="text-xl font-extrabold tracking-wide">INSTA<span class="text-pink-500">JET</span></span>
+        </div>
+
+        <div class="relative inline-block text-left z-50">
+            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-3 py-2 pr-8 focus:outline-none focus:border-pink-500 cursor-pointer appearance-none shadow-lg">
+                <option value="badini">☀️ کوردی (بەهدینی) ١٠٠٪</option>
+                <option value="sorani">☀️ کوردی (سورانی) ١٠٠٪</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="en-us">🇺🇸 English (US)</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mx-auto px-4 max-w-3xl my-auto py-6">
+        <div class="text-center mb-6">
+            <h1 id="mainTitle" class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight leading-tight">
+                دابەزاندنا ڤیدیۆ، ڕێڵز و ستۆریێن ئینستاگرامێ
+            </h1>
+            <p id="mainSubtitle" class="text-slate-400 text-sm md:text-base font-medium max-w-md mx-auto">
+                لینکی دانێ، کلیک بکە، و د چەند چرکەکا دا ب بەرزترین کوالێتی دابەزینە.
+            </p>
+        </div>
+
+        <!-- TOP AD (BANNER 728x90) -->
+        <div class="w-full flex justify-center mb-6" id="adTop">
+            <script>
+              atOptions = {
+                'key' : '5afe380c3cb536afa245e51fd8b6e583',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/5afe380c3cb536afa245e51fd8b6e583/invoke.js"></script>
+        </div>
+
+        <!-- INPUT BOX -->
+        <div class="glass-card p-4 md:p-6 rounded-3xl shadow-2xl shadow-black/40 mb-6 transition-all duration-300">
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="relative flex-1">
+                    <i class="fa-solid fa-link absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg"></i>
+                    <input type="text" id="instaUrl" placeholder="لینکی ئینستاگرامێ لڤێرە دانێ..." 
+                        class="w-full bg-slate-950/60 border border-slate-800 rounded-2xl py-4 py-4 pl-12 pr-24 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 text-left dir-ltr transition-all">
+                    
+                    <button onclick="pasteLink()" id="btnPaste" class="absolute right-3 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-paste"></i> <span id="txtPasteBtn">Paste</span>
+                    </button>
+                </div>
+                
+                <button onclick="downloadMedia()" id="btnDownload" class="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-pink-500/20 transition flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer">
+                    <span id="txtDownloadBtn">دابەزینە</span>
+                    <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div>
+            
+            <div id="errorMessage" class="hidden mt-4 text-rose-400 text-sm text-center font-medium bg-rose-500/10 py-2.5 rounded-xl border border-rose-500/20"></div>
+        </div>
+
+        <!-- RESULT CARD -->
+        <div id="resultCard" class="hidden glass-card p-6 rounded-3xl shadow-2xl transition-all duration-500 mb-6">
+            <div id="resultFlex" class="flex flex-col md:flex-row gap-6 items-center">
+                <div class="relative w-full md:w-48 aspect-[9/16] rounded-2xl overflow-hidden shadow-xl bg-slate-950 flex items-center justify-center">
+                    <img id="mediaCover" src="" alt="Cover" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                    <i class="fa-solid fa-circle-play text-white/80 text-4xl relative z-10"></i>
+                </div>
+                
+                <div class="flex-1 w-full flex flex-col justify-between py-2 text-center md:text-right" id="resultTextSection">
+                    <div>
+                        <h3 id="mediaTitleText" class="text-xl font-bold text-white mb-2">مێدیا هاتیە دۆزینەوە!</h3>
+                        <p id="mediaDesc" class="text-slate-400 text-sm line-clamp-3 mb-4">نوکە دشێی ب کوالێتیا فەرمی دابەزینی.</p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-3">
+                        <button id="downloadBtnMain" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-down"></i>
+                            <span id="txtMainDownload">دابەزاندنا فایلی</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUPPORT ZONE BUTTONS -->
+        <div class="w-full flex flex-col sm:flex-row justify-center items-center gap-3 mt-4">
+            <!-- SMARTLINK BUTTON -->
+            <a href="https://www.effectivecpmnetwork.com/pyz9djf0zb?key=dcd0c8354d3879fa5004da1d9fae683a" target="_blank" class="w-full sm:w-auto bg-slate-900/80 hover:bg-slate-800 text-slate-300 text-xs font-semibold px-5 py-3 rounded-2xl border border-slate-800 hover:border-pink-500/30 transition duration-300 flex items-center justify-center gap-2 shadow-md">
+                <i class="fa-solid fa-heart text-pink-500"></i>
+                <span id="txtSupport">پشتەڤانیا مە بکە ☕</span>
+            </a>
+            
+            <!-- MULTI SUPPORT POPUP TRIGGER -->
+            <button onclick="toggleSupportModal(true)" class="w-full sm:w-auto bg-slate-900/80 hover:bg-slate-800 text-amber-400 text-xs font-semibold px-5 py-3 rounded-2xl border border-slate-800 hover:border-amber-500/30 transition duration-300 flex items-center justify-center gap-2 shadow-md cursor-pointer">
+                <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                <span id="txtSupportBtn">ڕێکێن دی یێن پشتەڤانیێ 💳 / 🪙</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- MULTI SUPPORT MODAL -->
+    <div id="supportModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 z-50 transition-all duration-300">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl relative">
+            <button onclick="toggleSupportModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h3 class="text-xl font-bold text-white mb-4">پشتەڤانییا مە بکە</h3>
+            
+            <!-- TABS FOR SWITCHING -->
+            <div class="flex gap-2 p-1.5 bg-slate-950 rounded-xl mb-4 border border-slate-800">
+                <button onclick="switchTab('fastpay')" id="tabFastPay" class="flex-1 text-xs font-bold py-2.5 rounded-lg bg-amber-500 text-slate-950 transition duration-200 cursor-pointer">FastPay 💳</button>
+                <button onclick="switchTab('usdt')" id="tabUsdt" class="flex-1 text-xs font-bold py-2.5 rounded-lg text-slate-400 hover:text-white transition duration-200 cursor-pointer">USDT (TRC20) 🪙</button>
+            </div>
+            
+            <!-- FASTPAY CONTENT -->
+            <div id="contentFastPay" class="block">
+                <div class="bg-white p-4 rounded-2xl inline-block mb-4 shadow-inner">
+                    <svg viewBox="0 0 100 100" class="w-40 h-40 mx-auto">
+                        <path d="M0,0 h30 v10 h-20 v20 h-10 z M70,0 h30 v30 h-10 v-20 h-20 z M0,70 h10 v20 h-20 v-30 h10 z M100,100 h-30 v-10 h20 v-20 h10 z" fill="#0f172a"/>
+                        <rect x="15" y="15" width="20" height="20" fill="#0f172a"/>
+                        <rect x="20" y="20" width="10" height="10" fill="#ffffff"/>
+                        <rect x="65" y="15" width="20" height="20" fill="#0f172a"/>
+                        <rect x="70" y="20" width="10" height="10" fill="#ffffff"/>
+                        <rect x="15" y="65" width="20" height="20" fill="#0f172a"/>
+                        <rect x="20" y="70" width="10" height="10" fill="#ffffff"/>
+                        <path d="M45,15 h10 v10 h-10 z M45,35 h15 v5 h-15 z M35,45 h10 v15 h-10 z M55,55 h20 v10 h-20 z M75,45 h10 v15 h-10 z M45,75 h25 v10 h-25 z" fill="#e11d48"/>
+                        <circle cx="50" cy="50" r="12" fill="#0f172a"/>
+                        <circle cx="50" cy="50" r="8" fill="#e11d48"/>
+                    </svg>
+                </div>
+                <p class="text-slate-400 text-xs mb-4">بارکۆدی سەکەن بکە یان ژمارەیا خوارێ کۆپی بکە</p>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 flex justify-between items-center">
+                    <span id="fastPayNum" class="dir-ltr font-mono text-base font-bold text-amber-400 tracking-wide select-all">+964 750 604 5491</span>
+                    <button onclick="copyText('fastPayNum')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg transition cursor-pointer">
+                        <i class="fa-solid fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- USDT CONTENT -->
+            <div id="contentUsdt" class="hidden">
+                <!-- QR CODE FOR USDT (image_3.png Reference) -->
+                <div class="bg-white p-4 rounded-2xl inline-block mb-4 shadow-inner">
+                    <svg viewBox="0 0 100 100" class="w-40 h-40 mx-auto">
+                        <path d="M0,0 h30 v10 h-20 v20 h-10 z M70,0 h30 v30 h-10 v-20 h-20 z M0,70 h10 v20 h-20 v-30 h10 z M100,100 h-30 v-10 h20 v-20 h10 z" fill="#0f172a"/>
+                        <rect x="12" y="12" width="22" height="22" fill="#0f172a"/>
+                        <rect x="17" y="17" width="12" height="12" fill="#ffffff"/>
+                        <rect x="66" y="12" width="22" height="22" fill="#0f172a"/>
+                        <rect x="71" y="17" width="12" height="12" fill="#ffffff"/>
+                        <rect x="12" y="66" width="22" height="22" fill="#0f172a"/>
+                        <rect x="17" y="71" width="12" height="12" fill="#ffffff"/>
+                        <path d="M42,12 h16 v10 h-16 z M42,32 h12 v6 h-12 z M32,42 h10 v18 h-10 z M52,52 h24 v10 h-24 z M72,42 h14 v14 h-14 z M42,72 h28 v10 h-28 z M42,52 h6 v6 h-6 z M62,22 h6 v12 h-6 z M22,48 h6 v6 h-6 z" fill="#10b981"/>
+                    </svg>
+                </div>
+                <p class="text-slate-400 text-xs mb-4">تەنیا پارەی ل سەر هێلا <span class="text-emerald-400 font-bold">TRC-20</span> بفرێخە</p>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 flex justify-between items-center gap-2">
+                    <span id="usdtAddress" class="font-mono text-xs font-bold text-emerald-400 truncate select-all">TKUfVwnjyT2KUa9xnBreT32YLLJEwACHpc</span>
+                    <button onclick="copyText('usdtAddress')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg transition shrink-0 cursor-pointer">
+                        <i class="fa-solid fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="copyToast" class="text-emerald-400 text-xs font-medium opacity-0 transition-opacity duration-300 mt-3">هاتە کۆپیکرن! ✓</div>
+        </div>
+    </div>
+
+    <footer class="container mx-auto px-4 py-6 text-center text-xs text-slate-500 font-medium">
+        &copy; 2026 INSTAJET. All rights reserved.
+    </footer>
+
+    <script>
+        const languages = {
+            badini: {
+                title: "دابەزاندنا ڤیدیۆ، ڕێڵز و ستۆریێن ئینستاگرامێ",
+                subtitle: "لینکی دانێ، کلیک بکە، و د چەند چرکەکا دا ب بەرزترین کوالێتی دابەزینە.",
+                placeholder: "لینکی ئینستاگرامێ لڤێرە دانێ...",
+                paste: "پێوەکە",
+                download: "دابەزینە",
+                mainDl: "دابەزاندنا فایلی",
+                support: "پشتەڤانیا مە بکە ☕",
+                supportBtn: "ڕێکێن دی یێن پشتەڤانیێ 💳 / 🪙",
+                errorEmpty: "هیڤییە ل پێشدا لینکەکێ ئینستاگرامێ یێ ڕاست دانی!",
+                errorFetch: "چ کێشە د لینکێ تە دا هەیە یان پۆست یێ ئەکاونتەکێ تایبەتە!",
+                loading: "لێگەریان...", dir: "rtl"
+            },
+            sorani: {
+                title: "داگرتنی ڤیدیۆ، ڕێڵز و ستۆری ئینستاگرام",
+                subtitle: "لینکی دابنێ، کلیک بکە، و لە چەند چرکەیەکدا بە بەرزترین کوالێتی دایبگرە.",
+                placeholder: "لینکی ئینستاگرام لێرە دابنێ...",
+                paste: "پەیست",
+                download: "دایبگرە",
+                mainDl: "داگرتنی فایل",
+                support: "پشتیوانیمان بکە ☕",
+                supportBtn: "ڕێگاکانی تری پشتیوانی 💳 / 🪙",
+                errorEmpty: "تکایە سەرەتا لینکێکی ئینستاگرامی ڕاست دابنێ!",
+                errorFetch: "کێشەیەک لە لینکەکەدا هەیە یاخود پۆستەکە تایبەتە!",
+                loading: "گەڕان...", dir: "rtl"
+            },
+            ar: {
+                title: "تحميل فيديوهات، ريلز وستوري إنستغرام",
+                subtitle: "ضع الرابط، اضغط تحميل، واحصل على الميديا بأعلى جودة في ثوانٍ.",
+                placeholder: "أدخل رابط إنستغرام هنا...",
+                paste: "لصق",
+                download: "تحميل",
+                mainDl: "تحميل الملف",
+                support: "ادعمنا ☕",
+                supportBtn: "طرق الدعم الأخرى 💳 / 🪙",
+                errorEmpty: "يرجى إدخال رابط إنستغرام صحيح أولاً!",
+                errorFetch: "هناك خطأ في الرابط أو أن الحساب خاص!",
+                loading: "جاري البحث...", dir: "rtl"
+            },
+            "en-us": {
+                title: "Download Instagram Videos, Reels & Stories",
+                subtitle: "Paste the link, click download, and grab your media in highest quality instantly.",
+                placeholder: "Paste Instagram link here...",
+                paste: "Paste",
+                download: "Download",
+                mainDl: "Download File",
+                support: "Support Us ☕",
+                supportBtn: "Other Support Options 💳 / 🪙",
+                errorEmpty: "Please paste a valid Instagram link first!",
+                errorFetch: "Invalid link or the account is private!",
+                loading: "Searching...", dir: "ltr"
+            }
+        };
+
+        let currentLang = 'badini';
+        let cachedMediaUrl = "";
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const l = languages[lang];
+            
+            document.getElementById('mainTitle').innerText = l.title;
+            document.getElementById('mainSubtitle').innerText = l.subtitle;
+            document.getElementById('instaUrl').placeholder = l.placeholder;
+            document.getElementById('txtPasteBtn').innerText = l.paste;
+            document.getElementById('txtDownloadBtn').innerText = l.download;
+            document.getElementById('txtMainDownload').innerText = l.mainDl;
+            document.getElementById('txtSupport').innerText = l.support;
+            document.getElementById('txtSupportBtn').innerText = l.supportBtn;
+
+            const body = document.body;
+            const resFlex = document.getElementById('resultFlex');
+            const resText = document.getElementById('resultTextSection');
+
+            if(l.dir === "rtl") {
+                body.className = "text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-pink-500 selection:text-white dir-rtl";
+                body.setAttribute('dir', 'rtl');
+                resFlex.classList.remove('md:flex-row-reverse');
+                resText.classList.remove('md:text-left'); resText.classList.add('md:text-right');
+            } else {
+                body.className = "text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-pink-500 selection:text-white dir-ltr";
+                body.setAttribute('dir', 'ltr');
+                resFlex.classList.add('md:flex-row-reverse');
+                resText.classList.remove('md:text-right'); resText.classList.add('md:text-left');
+            }
+        }
+
+        function toggleSupportModal(show) {
+            const modal = document.getElementById('supportModal');
+            if(show) {
+                modal.classList.remove('hidden');
+                switchTab('fastpay');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function switchTab(type) {
+            const tabFP = document.getElementById('tabFastPay');
+            const tabUSDT = document.getElementById('tabUsdt');
+            const contentFP = document.getElementById('contentFastPay');
+            const contentUSDT = document.getElementById('contentUsdt');
+
+            if(type === 'fastpay') {
+                tabFP.className = "flex-1 text-xs font-bold py-2.5 rounded-lg bg-amber-500 text-slate-950 transition duration-200 cursor-pointer";
+                tabUSDT.className = "flex-1 text-xs font-bold py-2.5 rounded-lg text-slate-400 hover:text-white transition duration-200 cursor-pointer";
+                contentFP.classList.remove('hidden'); contentFP.classList.add('block');
+                contentUSDT.classList.remove('block'); contentUSDT.classList.add('hidden');
+            } else {
+                tabUSDT.className = "flex-1 text-xs font-bold py-2.5 rounded-lg bg-emerald-500 text-slate-950 transition duration-200 cursor-pointer";
+                tabFP.className = "flex-1 text-xs font-bold py-2.5 rounded-lg text-slate-400 hover:text-white transition duration-200 cursor-pointer";
+                contentUSDT.classList.remove('hidden'); contentUSDT.classList.add('block');
+                contentFP.classList.remove('block'); contentFP.classList.add('hidden');
+            }
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text);
+            const toast = document.getElementById('copyToast');
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+        }
+
+        async function pasteLink() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('instaUrl').value = text;
+            } catch (err) {
+                alert("Please allow clipboard permission to paste.");
+            }
+        }
+
+        async function downloadMedia() {
+            const urlInput = document.getElementById('instaUrl').value.trim();
+            const btnDownload = document.getElementById('btnDownload');
+            const errorMessage = document.getElementById('errorMessage');
+            const resultCard = document.getElementById('resultCard');
+            const l = languages[currentLang];
+
+            errorMessage.classList.add('hidden');
+            resultCard.classList.add('hidden');
+
+            if (!urlInput) {
+                showError(l.errorEmpty);
+                return;
+            }
+
+            btnDownload.disabled = true;
+            document.getElementById('txtDownloadBtn').innerText = l.loading;
+
+            try {
+                // Free Instagram Downloader API
+                const response = await fetch(`https://api.vkrhost.com/api/instagram.php?url=${encodeURIComponent(urlInput)}`);
+                const data = await response.json();
+
+                if (data && data.data && data.data[0]) {
+                    const mediaData = data.data[0];
+                    
+                    // Set cover image or preview thumbnail
+                    document.getElementById('mediaCover').src = mediaData.thumbnail || "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500";
+                    
+                    cachedMediaUrl = mediaData.url;
+                    resultCard.classList.remove('hidden');
+                } else {
+                    showError(l.errorFetch);
+                }
+            } catch (error) {
+                showError("کێشەیەک د پەیوەستبوونا سێرڤەری دا هەیە.");
+            } finally {
+                btnDownload.disabled = false;
+                document.getElementById('txtDownloadBtn').innerText = l.download;
+            }
+        }
+
+        document.getElementById('downloadBtnMain').addEventListener('click', () => {
+            if(cachedMediaUrl) {
+                window.open(cachedMediaUrl, '_blank');
+            }
+        });
+
+        function showError(msg) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerText = msg;
+            errorMessage.classList.remove('hidden');
+        }
+
+        changeLanguage('badini');
+    </script>
+</body>
+</html>
