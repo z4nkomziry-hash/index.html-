@@ -1,23 +1,87 @@
-<script>
-    async function downloadMedia() {
-        const urlInput = document.getElementById('instaUrl').value.trim();
-        const btnDownload = document.getElementById('btnDownload');
-        const errorMessage = document.getElementById('errorMessage');
+<!DOCTYPE html>
+<html lang="ku-center" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAVETA | دابەزێنەرێ ئینستاگرامێ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; font-family: sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4">
+
+    <header class="w-full max-w-lg py-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">SAVE<span class="text-pink-500">TA</span></h1>
+    </header>
+
+    <main class="w-full max-w-lg glass p-6 rounded-3xl shadow-2xl text-center">
+        <h2 class="text-xl font-bold mb-4">لینکی ئینستاگرامێ لڤێرە دانێ</h2>
         
-        if (!urlInput) return showError("هیڤییە لینکەکێ دروست دانی");
+        <input type="text" id="instaUrl" placeholder="https://www.instagram.com/..." 
+            class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl mb-4 text-left" dir="ltr">
+        
+        <button onclick="downloadMedia()" id="btnDownload" 
+            class="w-full bg-gradient-to-r from-pink-500 to-violet-600 p-4 rounded-xl font-bold hover:opacity-90 transition">
+            دابەزینە
+        </button>
 
-        btnDownload.disabled = true;
-        btnDownload.innerText = "جاري البحث...";
+        <div id="errorMessage" class="hidden mt-4 text-red-400 bg-red-900/20 p-3 rounded-lg text-sm"></div>
 
-        try {
-            // سێرڤەرەکێ جێگیرتر بۆ ئینستاگرامێ
-            let response = await fetch(`https://api.snapinsta.app/video?url=${encodeURIComponent(urlInput)}`);
-            // تێبینی: ئەگەر ئەڤ سێرڤەرە نەکر، دێ بەرسڤەکێ دەی تا من سێرڤەرەکێ دی بۆ تە پەیدا کر.
-            // ... (تەڤایا کۆدێ تە ل سەر ڤی شێوازی بپارێزە)
-        } catch (e) {
-            showError("نەهاتە دیتن: پەیوەندی ب سێرڤەری نەهاتە کرن.");
-        } finally {
-            btnDownload.disabled = false;
+        <div id="resultCard" class="hidden mt-6">
+            <img id="mediaCover" src="" class="w-full rounded-2xl mb-4">
+            <button id="downloadBtnMain" class="w-full bg-emerald-500 p-4 rounded-xl font-bold">
+                دابەزاندنا فایلی
+            </button>
+        </div>
+    </main>
+
+    <button onclick="document.getElementById('supportModal').classList.remove('hidden')" class="mt-8 text-slate-400 hover:text-white transition">
+        <i class="fa-solid fa-heart text-pink-500"></i> پشتەڤانیا مە بکە ☕
+    </button>
+
+    <div id="supportModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4">
+        <div class="bg-slate-900 p-6 rounded-3xl w-full max-w-sm text-center">
+            <h3 class="font-bold mb-4">پشتەڤانییا مە بکە</h3>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=FastPay:+9647506045491" class="mx-auto bg-white p-2 rounded-xl mb-4">
+            <p class="font-mono text-pink-500 mb-4">+964 750 604 5491</p>
+            <button onclick="document.getElementById('supportModal').classList.add('hidden')" class="bg-slate-700 px-6 py-2 rounded-lg">داخستن</button>
+        </div>
+    </div>
+
+    <footer class="mt-auto py-6 text-slate-500 text-sm">SAVETA © 2026</footer>
+
+    <script>
+        async function downloadMedia() {
+            const url = document.getElementById('instaUrl').value.trim();
+            const btn = document.getElementById('btnDownload');
+            const err = document.getElementById('errorMessage');
+            
+            if(!url) return;
+            btn.innerText = "لێگەریان...";
+            err.classList.add('hidden');
+
+            try {
+                // سێرڤەرەکێ گشتی یێ بێ کێشە
+                const res = await fetch(`https://api.vkrhost.com/api/instagram.php?url=${encodeURIComponent(url)}`);
+                const data = await res.json();
+                
+                if(data.data && data.data[0]) {
+                    document.getElementById('mediaCover').src = data.data[0].thumbnail;
+                    document.getElementById('resultCard').classList.remove('hidden');
+                    document.getElementById('downloadBtnMain').onclick = () => window.open(data.data[0].url, '_blank');
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                err.innerText = "کێشەیەک د لینکێ دا هەیە یان ئەکاونت یێ تایبەتە!";
+                err.classList.remove('hidden');
+            } finally {
+                btn.innerText = "دابەزینە";
+            }
         }
-    }
-</script>
+    </script>
+</body>
+</html>
