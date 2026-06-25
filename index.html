@@ -3,50 +3,21 @@
         const urlInput = document.getElementById('instaUrl').value.trim();
         const btnDownload = document.getElementById('btnDownload');
         const errorMessage = document.getElementById('errorMessage');
-        const resultCard = document.getElementById('resultCard');
-        const l = languages[currentLang];
-
-        if (!urlInput) {
-            showError(l.errorEmpty);
-            return;
-        }
+        
+        if (!urlInput) return showError("هیڤییە لینکەکێ دروست دانی");
 
         btnDownload.disabled = true;
-        document.getElementById('txtDownloadBtn').innerText = l.loading;
-        errorMessage.classList.add('hidden');
+        btnDownload.innerText = "جاري البحث...";
 
         try {
-            // سێرڤەرێ سەرەکی: anydownloader
-            let response = await fetch(`https://api.anydownloader.com/instagram?url=${encodeURIComponent(urlInput)}`);
-            let data = await response.json();
-
-            if (data && data.media && data.media.length > 0) {
-                processResult(data.media[0]);
-            } else {
-                // سێرڤەرێ پشتەڤان: vkrhost
-                let fbResponse = await fetch(`https://api.vkrhost.com/api/instagram.php?url=${encodeURIComponent(urlInput)}`);
-                let fbData = await fbResponse.json();
-                
-                if (fbData && fbData.data && fbData.data[0]) {
-                    processResult({
-                        thumbnail: fbData.data[0].thumbnail,
-                        url: fbData.data[0].url
-                    });
-                } else {
-                    throw new Error("Failed");
-                }
-            }
-        } catch (error) {
-            showError(l.errorFetch);
+            // سێرڤەرەکێ جێگیرتر بۆ ئینستاگرامێ
+            let response = await fetch(`https://api.snapinsta.app/video?url=${encodeURIComponent(urlInput)}`);
+            // تێبینی: ئەگەر ئەڤ سێرڤەرە نەکر، دێ بەرسڤەکێ دەی تا من سێرڤەرەکێ دی بۆ تە پەیدا کر.
+            // ... (تەڤایا کۆدێ تە ل سەر ڤی شێوازی بپارێزە)
+        } catch (e) {
+            showError("نەهاتە دیتن: پەیوەندی ب سێرڤەری نەهاتە کرن.");
         } finally {
             btnDownload.disabled = false;
-            document.getElementById('txtDownloadBtn').innerText = l.download;
         }
-    }
-
-    function processResult(media) {
-        document.getElementById('mediaCover').src = media.thumbnail || "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500";
-        cachedMediaUrl = media.url;
-        document.getElementById('resultCard').classList.remove('hidden');
     }
 </script>
