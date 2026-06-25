@@ -1,85 +1,111 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku-center" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAVETA | دابەزێنەرێ ئینستاگرامێ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>INSTAJET | باشترین دابەزێنەرێ ئینستاگرامێ</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { 
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); 
-            color: white; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Kufi+Arabic:wght@300;500;700&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Kufi Arabic', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
         }
-        .main-card { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            width: 90%; 
-            max-width: 450px; 
-            padding: 24px; 
-            border-radius: 24px;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px rgba(255, 255, 255, 0.08) solid;
         }
+        .dir-ltr { direction: ltr; text-align: left; }
+        .dir-rtl { direction: rtl; text-align: right; }
     </style>
+    
+    <script src="https://pl29886983.effectivecpmnetwork.com/d3/93/40/d3934077e9523de11fad986c4fc273e4.js"></script>
 </head>
-<body>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-pink-500 selection:text-white">
 
-    <div class="mb-8 text-center">
-        <h1 class="text-4xl font-black">SAVE<span class="text-pink-500">TA</span></h1>
-    </div>
+    <header class="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-tr from-pink-500 to-violet-600 p-2.5 rounded-2xl shadow-lg shadow-pink-500/20">
+                <i class="fa-brands fa-instagram text-xl text-white"></i>
+            </div>
+            <span class="text-xl font-extrabold tracking-wide">INSTA<span class="text-pink-500">JET</span></span>
+        </div>
 
-    <div class="main-card shadow-2xl">
-        <p class="text-center text-slate-300 mb-4 font-bold">لینکی ئینستاگرامێ لڤێرە دانێ</p>
-        
-        <input type="text" id="instaUrl" placeholder="https://www.instagram.com/..." 
-            class="w-full bg-slate-950 border border-slate-700 p-4 rounded-xl mb-4 text-left outline-none focus:border-pink-500 transition" dir="ltr">
-        
-        <button onclick="downloadMedia()" id="btnDownload" 
-            class="w-full bg-gradient-to-r from-pink-500 to-violet-600 p-4 rounded-xl font-bold text-white hover:opacity-90 transition">
-            دابەزینە
-        </button>
+        <div class="relative inline-block text-left z-50">
+            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-3 py-2 pr-8 focus:outline-none focus:border-pink-500 cursor-pointer appearance-none shadow-lg">
+                <option value="badini">☀️ کوردی (بەهدینی) ١٠٠٪</option>
+                <option value="sorani">☀️ کوردی (سورانی) ١٠٠٪</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="en-us">🇺🇸 English (US)</option>
+            </select>
+        </div>
+    </header>
 
-        <div id="errorMessage" class="hidden mt-4 text-red-400 bg-red-900/20 p-3 rounded-lg text-sm text-center"></div>
-    </div>
+    <main class="container mx-auto px-4 max-w-3xl my-auto py-6">
+        <div class="text-center mb-6">
+            <h1 id="mainTitle" class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight leading-tight">دابەزاندنا ڤیدیۆ و ستۆریێن ئینستاگرامێ</h1>
+            <p id="mainSubtitle" class="text-slate-400 text-sm md:text-base font-medium max-w-md mx-auto">لینکی دانێ و ب بەرزترین کوالێتی دابەزینە.</p>
+        </div>
 
-    <div class="mt-8 text-center">
-        <button onclick="alert('FastPay: +964 750 604 5491')" class="text-slate-400 hover:text-white transition flex items-center gap-2">
-            <i class="fa-solid fa-heart text-pink-500"></i> پشتەڤانیا مە بکە ☕
-        </button>
-    </div>
+        <div class="glass-card p-4 md:p-6 rounded-3xl shadow-2xl mb-6">
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="relative flex-1">
+                    <input type="text" id="instaUrl" placeholder="لینکی ئینستاگرامێ لڤێرە دانێ..." class="w-full bg-slate-950/60 border border-slate-800 rounded-2xl py-4 pl-4 pr-24 text-white focus:outline-none focus:border-pink-500 text-left dir-ltr">
+                </div>
+                <button onclick="downloadMedia()" id="btnDownload" class="bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold px-8 py-4 rounded-2xl shadow-lg transition">
+                    <span id="txtDownloadBtn">دابەزینە</span>
+                </button>
+            </div>
+            <div id="errorMessage" class="hidden mt-4 text-rose-400 text-sm text-center"></div>
+        </div>
 
-    <footer class="mt-12 text-slate-600 text-sm">SAVETA © 2026</footer>
+        <div id="resultCard" class="hidden glass-card p-6 rounded-3xl shadow-2xl">
+            <div class="flex flex-col items-center">
+                <img id="mediaCover" class="w-48 rounded-2xl mb-4 shadow-xl">
+                <button id="downloadBtnMain" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl transition">
+                    <span id="txtMainDl">دابەزاندنا فایلی</span>
+                </button>
+            </div>
+        </div>
+    </main>
 
     <script>
+        const languages = {
+            badini: { title: "دابەزاندنا ڤیدیۆ و ستۆریێن ئینستاگرامێ", subtitle: "لینکی دانێ و ب بەرزترین کوالێتی دابەزینە.", placeholder: "لینکی ئینستاگرامێ لڤێرە دانێ...", download: "دابەزینە", mainDl: "دابەزاندنا فایلی", err: "لینکێ تە یان ئەکاونت یێ تایبەتە!" },
+            sorani: { title: "داگرتنی ڤیدیۆ و ستۆری ئینستاگرام", subtitle: "لینکی دابنێ و بە بەرزترین کوالێتی دایبگرە.", placeholder: "لینکی ئینستاگرام لێرە دابنێ...", download: "دایبگرە", mainDl: "داگرتنی فایل", err: "لینکەکەت کێشەی هەیە یان ئەکاونتەکە تایبەتە!" },
+            ar: { title: "تحميل فيديوهات وستوري إنستغرام", subtitle: "ضع الرابط وقم بالتحميل بأعلى جودة.", placeholder: "أدخل رابط إنستغرام هنا...", download: "تحميل", mainDl: "تحميل الملف", err: "رابط غير صالح أو الحساب خاص!" },
+            "en-us": { title: "Download Instagram Videos & Stories", subtitle: "Paste link and download in highest quality.", placeholder: "Paste Instagram link...", download: "Download", mainDl: "Download File", err: "Invalid link or private account!" }
+        };
+
+        function changeLanguage(lang) {
+            const l = languages[lang];
+            document.getElementById('mainTitle').innerText = l.title;
+            document.getElementById('mainSubtitle').innerText = l.subtitle;
+            document.getElementById('instaUrl').placeholder = l.placeholder;
+            document.getElementById('txtDownloadBtn').innerText = l.download;
+            document.getElementById('txtMainDl').innerText = l.mainDl;
+        }
+
         async function downloadMedia() {
             const url = document.getElementById('instaUrl').value.trim();
             const btn = document.getElementById('btnDownload');
             const err = document.getElementById('errorMessage');
-            
             if(!url) return;
             btn.innerText = "لێگەریان...";
-            err.classList.add('hidden');
-
             try {
                 const res = await fetch(`https://api.vkrhost.com/api/instagram.php?url=${encodeURIComponent(url)}`);
                 const data = await res.json();
-                
                 if(data.data && data.data[0]) {
-                    window.open(data.data[0].url, '_blank');
-                } else {
-                    throw new Error();
-                }
+                    document.getElementById('mediaCover').src = data.data[0].thumbnail;
+                    document.getElementById('resultCard').classList.remove('hidden');
+                    document.getElementById('downloadBtnMain').onclick = () => window.open(data.data[0].url, '_blank');
+                } else throw new Error();
             } catch {
-                err.innerText = "کێشەیەک د لینکێ دا هەیە یان ئەکاونت یێ تایبەتە!";
+                err.innerText = languages[currentLang].err;
                 err.classList.remove('hidden');
-            } finally {
-                btn.innerText = "دابەزینە";
-            }
+            } finally { btn.innerText = languages[currentLang].download; }
         }
     </script>
 </body>
